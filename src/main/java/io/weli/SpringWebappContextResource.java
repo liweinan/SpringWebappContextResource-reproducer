@@ -1,11 +1,13 @@
 package io.weli;
 
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Context;
 import org.jboss.logging.Logger;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
+//import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
@@ -18,11 +20,13 @@ public class SpringWebappContextResource {
     private UriInfo ui;
     private HttpHeaders headers;
 
+//    @Inject
     @Context
     public void setUriInfo(UriInfo ui) {
         this.ui = ui;
     }
 
+//    @Inject
     @Context
     public void setHttpHeaders(HttpHeaders headers) {
         this.headers = headers;
@@ -30,7 +34,7 @@ public class SpringWebappContextResource {
 
     @GET
     @Path("/uri")
-    public String echoURI() {
+    public String echoURI(@Context UriInfo ui) {
         sleep();
         logger.info("requestUribuilder: " + ui.getRequestUriBuilder().toString());
         logger.info("request uri: " + ui.getRequestUri());

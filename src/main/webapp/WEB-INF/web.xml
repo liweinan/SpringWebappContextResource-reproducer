@@ -3,23 +3,20 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>Archetype Created Web Application</display-name>
 
-<!--    <listener>-->
-<!--        <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>-->
-<!--    </listener>-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext*.xml</param-value>
+    </context-param>
 
-<!--    <context-param>-->
-<!--        <param-name>javax.ws.rs.core.Application</param-name>-->
-<!--        <param-value>io.weli.MyApp</param-value>-->
-<!--    </context-param>-->
 
-<!--    <context-param>-->
-<!--        <param-name>resteasy.scan</param-name>-->
-<!--        <param-value>true</param-value>-->
-<!--    </context-param>-->
+    <!--    This must be present, or `SpringContextLoaderListener` will throw error: -->
+    <!--    java.lang.RuntimeException: RESTEASY013095: RESTeasy Deployment is null, do you have the ResteasyBootstrap listener configured?-->
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
 
-<!--    <context-param>-->
-<!--        <param-name>resteasy.resources</param-name>-->
-<!--        <param-value>io.weli</param-value>-->
-<!--    </context-param>-->
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+    </listener>
 
 </web-app>
