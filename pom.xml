@@ -12,29 +12,50 @@
         <relativePath/>
     </parent>
     <properties>
-        <resteasy.version>6.1.0.Final</resteasy.version>
-        <!--        <version.org.springframework>5.0.14.RELEASE</version.org.springframework>-->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.release>11</maven.compiler.release>
-
         <failOnMissingWebXml>false</failOnMissingWebXml>
+        <galleon.fork.embedded>true</galleon.fork.embedded>
+        <galleon.log.time>true</galleon.log.time>
+        <galleon.offline>false</galleon.offline>
+        <jdk.min.version>17</jdk.min.version>
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.min.version>3.6.0</maven.min.version>
+        <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+        <maven.test.skip>false</maven.test.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <resteasy.version>6.1.0.Final</resteasy.version>
+        <server.version>${version.org.wildfly}</server.version>
+        <skip.java8.tests>false</skip.java8.tests>
+        <skipTests>${maven.test.skip}</skipTests>
+        <surefire.system.args>-Xms512m -Xmx512m</surefire.system.args>
+        <version.aopalliance>1.0</version.aopalliance>
+        <version.commons-codec>1.15</version.commons-codec>
+        <version.jakarta.annotation-api>2.1.1</version.jakarta.annotation-api>
+        <version.jakarta.servlet.servlet-api>5.0.0</version.jakarta.servlet.servlet-api>
+        <version.jakarta.ws.rs>3.1.0</version.jakarta.ws.rs>
+        <version.junit>4.13.2</version.junit>
+        <version.log4j>2.19.0</version.log4j>
+        <version.org.aspectj>1.7.3</version.org.aspectj>
+        <version.org.eclipse.jetty>11.0.12</version.org.eclipse.jetty>
+        <version.org.jboss.arquillian>1.7.0.Alpha13</version.org.jboss.arquillian>
+        <version.org.jboss.galleon>5.0.5.Final</version.org.jboss.galleon>
+        <version.org.jboss.logging.jboss-logging-annotations>2.2.1.Final
+        </version.org.jboss.logging.jboss-logging-annotations>
+        <version.org.jboss.logging.jboss-logging-tools>2.2.1.Final</version.org.jboss.logging.jboss-logging-tools>
+        <version.org.jboss.logging.jboss-logging>3.5.0.Final</version.org.jboss.logging.jboss-logging>
+        <version.org.jboss.resteasy.checkstyle>1.0.0.Final</version.org.jboss.resteasy.checkstyle>
+        <version.org.jboss.resteasy>6.2.1.Final</version.org.jboss.resteasy>
+        <version.org.springframework>6.0.0</version.org.springframework>
+        <version.org.testng>7.6.1</version.org.testng>
+        <version.org.wildfly.core>19.0.0.Final</version.org.wildfly.core>
+        <version.org.wildfly.galleon-plugins>6.2.0.Final</version.org.wildfly.galleon-plugins>
+        <version.org.wildfly>27.0.0.Final</version.org.wildfly>
+        <version.reactive-streams>1.0.4</version.reactive-streams>
+        <version.resteasy.testsuite>${version.org.jboss.resteasy}</version.resteasy.testsuite>
+        <version.shrinkwrap.resolvers>3.1.4</version.shrinkwrap.resolvers>
     </properties>
 
     <dependencies>
-        <!-- <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet.ver}</version>
-            <scope>provided</scope>
-        </dependency> -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.jboss.resteasy</groupId>-->
-        <!--            <artifactId>resteasy-core-spi</artifactId>-->
-        <!--            <version>${resteasy.version}</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-core-spi</artifactId>
@@ -42,39 +63,79 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-cdi</artifactId>
+            <version>${resteasy.version}</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.ws.rs</groupId>
             <artifactId>jakarta.ws.rs-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <!-- <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-servlet-initializer</artifactId>
-            <version>${resteasy.version}</version>
+            <version>${version.jakarta.ws.rs}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <version>${resteasy.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-multipart-provider</artifactId>
-            <version>${resteasy.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
-            <scope>provided</scope>
-        </dependency> -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.jboss.weld.servlet</groupId>-->
-        <!--            <artifactId>weld-servlet-core</artifactId>-->
-        <!--            <version>3.0.4.Final</version>-->
-        <!--        </dependency>-->
+
+        <!-- Spring Dependencies -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-aop</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-beans</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-context</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-context-support</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-core</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-expression</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-web</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-webmvc</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>aopalliance</groupId>-->
+<!--            <artifactId>aopalliance</artifactId>-->
+<!--            <version>${version.aopalliance}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.aspectj</groupId>-->
+<!--            <artifactId>aspectjrt</artifactId>-->
+<!--            <version>${version.org.aspectj}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.aspectj</groupId>-->
+<!--            <artifactId>aspectjweaver</artifactId>-->
+<!--            <version>${version.org.aspectj}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-test</artifactId>-->
+<!--            <version>${version.org.springframework}</version>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <finalName>SpringWebappContextResource-reproducer</finalName>
