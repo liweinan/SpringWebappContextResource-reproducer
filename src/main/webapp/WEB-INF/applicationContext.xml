@@ -4,9 +4,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
     <context:component-scan base-package="io.weli">
         <context:include-filter type="annotation" expression="jakarta.ws.rs.Path"/>
     </context:component-scan>
     <context:annotation-config/>
 
+    <import resource="classpath:springmvc-resteasy.xml"/>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsf"/>
+    </bean>
+
 </beans>
+

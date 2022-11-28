@@ -11,7 +11,10 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
+@Controller
 @Path("/echo")
 @Produces(MediaType.TEXT_PLAIN)
 public class SpringWebappContextResource {
